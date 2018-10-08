@@ -1,6 +1,6 @@
 package de.emobilink.registration.images;
 
-import de.emobilink.registration.ServerApplication;
+import de.emobilink.registration.RegistrationApplication;
 import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +18,7 @@ import java.util.Arrays;
 import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ServerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = RegistrationApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations = {"classpath:application-test.properties"})
 public class ImagesTest {
 
