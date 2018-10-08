@@ -1,6 +1,7 @@
 package de.emobilink.registration.images;
 
 import de.emobilink.registration.ServerApplication;
+import org.apache.commons.io.IOUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,8 +38,7 @@ public class ImagesTest {
     private byte[] readImage(String fileName) throws IOException {
         ClassLoader classLoader = this.getClass().getClassLoader();
         InputStream inputStream = classLoader.getResourceAsStream(fileName);
-
-        return inputStream.readAllBytes();
+        return IOUtils.toByteArray(inputStream);
     }
 
     @Test
