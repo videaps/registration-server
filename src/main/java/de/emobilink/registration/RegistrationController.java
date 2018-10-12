@@ -3,10 +3,10 @@ package de.emobilink.registration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Base64;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/registration")
@@ -34,6 +34,19 @@ public class RegistrationController {
         RegistrationEntity entity = registrationMapper.toRegistration(registrationModel);
 
         registrationRepository.save(entity);
+    }
+
+    @PostMapping("/readAllByEmail")
+    public RegistrationList readAllByEmail(@RequestBody String email) {
+        List<RegistrationEntity> entities = registrationRepository.findAllByEmail(email);
+
+        RegistrationList registrations = new RegistrationList();
+        for (RegistrationEntity entity : entities) {
+            RegistrationModel model = registrationMapper.fromRegistration(entity);
+            registrations.getModels().add(model);
+        }
+
+        return registrations;
     }
 
 }
