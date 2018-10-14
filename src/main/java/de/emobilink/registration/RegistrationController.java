@@ -36,16 +36,26 @@ public class RegistrationController {
         registrationRepository.save(entity);
     }
 
+    @GetMapping("/readAll")
+    public RegistrationList readAll() {
+        List<RegistrationEntity> entities = registrationRepository.findAll();
+        RegistrationList registrations = convert(entities);
+        return registrations;
+    }
+
     @PostMapping("/readAllByEmail")
     public RegistrationList readAllByEmail(@RequestBody String email) {
         List<RegistrationEntity> entities = registrationRepository.findAllByEmail(email);
+        RegistrationList registrations = convert(entities);
+        return registrations;
+    }
 
+    private RegistrationList convert(List<RegistrationEntity> entities) {
         RegistrationList registrations = new RegistrationList();
         for (RegistrationEntity entity : entities) {
             RegistrationModel model = registrationMapper.fromRegistration(entity);
             registrations.getModels().add(model);
         }
-
         return registrations;
     }
 

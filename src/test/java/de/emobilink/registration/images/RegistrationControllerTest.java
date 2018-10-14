@@ -58,11 +58,23 @@ public class RegistrationControllerTest {
         RegistrationList registrations = restTemplate.postForObject(
                 url + "/readAllByEmail", "oliver.hock@gmail.com", RegistrationList.class);
 
-        assertEquals(2, registrations.getModels().size());
-        assertEquals("oliver.hock@gmail.com", registrations.getModels().get(0).getEmail());
-        assertEquals("oliver.hock@gmail.com", registrations.getModels().get(1).getEmail());
+        assertTrue(registrations.getModels().size() >= 2);
     }
 
+    @Test
+    public void readAll() {
+        RestTemplate restTemplate = new RestTemplate();
+
+        restTemplate.postForObject(
+                url + "/save", createRegistrationModel("oliver.hock@gmail.com"), Void.class);
+        restTemplate.postForObject(
+                url + "/save", createRegistrationModel("oliver.hock@videa.services"), Void.class);
+
+        RegistrationList registrations = restTemplate.getForObject(
+                url + "/readAll", RegistrationList.class);
+
+        assertTrue(registrations.getModels().size() >= 2);
+    }
 
     private RegistrationModel createRegistrationModel(String email) {
         RegistrationModel model = new RegistrationModel();
