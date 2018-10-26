@@ -25,10 +25,12 @@ public class RegistrationController {
      * @return HTTP response containing given message.
      */
     @GetMapping("/ping/{message}")
-    public @ResponseBody ResponseEntity<String> ping(@PathVariable String message) {
+    public @ResponseBody
+    ResponseEntity<String> ping(@PathVariable String message) {
         return new ResponseEntity<String>("Hi " + message, HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = {"http://localhost:4200"})
     @PostMapping("/save")
     public void save(@RequestBody RegistrationModel registrationModel) {
         RegistrationEntity entity = registrationMapper.toRegistration(registrationModel);
@@ -50,6 +52,9 @@ public class RegistrationController {
         return registrations;
     }
 
+    /*
+     * Convert a list of entities to a registration list wrapper.
+     */
     private RegistrationList convert(List<RegistrationEntity> entities) {
         RegistrationList registrations = new RegistrationList();
         for (RegistrationEntity entity : entities) {
