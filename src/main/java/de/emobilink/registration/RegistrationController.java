@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/registration")
 public class RegistrationController {
 
@@ -30,7 +31,6 @@ public class RegistrationController {
         return new ResponseEntity<String>("Hi " + message, HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = {"http://localhost:4200"})
     @PostMapping("/save")
     public void save(@RequestBody RegistrationModel registrationModel) {
         RegistrationEntity entity = registrationMapper.toRegistration(registrationModel);
